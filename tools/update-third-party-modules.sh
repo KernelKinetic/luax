@@ -30,7 +30,7 @@ update_all()
     update_limath       105
     update_lqmath       107
     update_lmathx
-    update_luasocket    3.1.0
+    #update_luasocket    3.1.0
     update_lpeg         1.1.0
     update_argparse     master
     update_serpent      master
