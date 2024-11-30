@@ -571,16 +571,10 @@ section "LuaX sources"
 ---------------------------------------------------------------------
 
 local linux_only = {
-    "ext/c/luasocket/serial.c",
-    "ext/c/luasocket/unixdgram.c",
-    "ext/c/luasocket/unixstream.c",
-    "ext/c/luasocket/usocket.c",
-    "ext/c/luasocket/unix.c",
     "ext/c/linenoise/linenoise.c",
     "ext/c/linenoise/utf8.c",
 }
 local windows_only = {
-    "ext/c/luasocket/wsocket.c",
 }
 local ignored_sources = {
     "ext/c/lqmath/src/imath.c",
@@ -830,9 +824,6 @@ targets:foreach(function(target)
             },
         } : map(function(src)
             return build("$tmp"/target.name/"obj"/src:chext".o") { cc_ext[target.name], src,
-                additional_flags = case(src:basename():splitext()) {
-                    usocket = "-Wno-#warnings",
-                },
                 implicit_in = case(src:basename():splitext()) {
                     limath = "check_limath_version",
                     imath  = "check_limath_version",

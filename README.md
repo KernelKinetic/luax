@@ -318,7 +318,6 @@ and [lapp](http://cdelord.fr/lapp).
 - [lz4](doc/lz4.md): Extremely Fast Compression algorithm
 - [lzip](doc/lzip.md): A compression library for the lzip format
 - [lpeg](doc/lpeg.md): Parsing Expression Grammars For Lua
-- [luasocket](doc/luasocket.md): Network support for the Lua language
 - [argparse](doc/argparse.md): Feature-rich command line parser for Lua
 - [serpent](doc/serpent.md): Lua serializer and pretty printer
 - [cbor](doc/cbor.md): pure Lua implementation of the CBOR
@@ -385,9 +384,6 @@ The script `lib/luax.lua` can be reused in pure Lua programs:
 - **[Lpeg](http://www.inf.puc-rio.br/~roberto/lpeg/)**: Parsing
   Expression Grammars For Lua ([MIT
   license](http://www.lua.org/license.html))
-- **[luasocket](https://github.com/diegonehab/luasocket)**: Network
-  support for the Lua language ([LuaSocket 3.0
-  license](https://github.com/diegonehab/luasocket/blob/master/LICENSE))
 - **[serpent](https://github.com/pkulchenko/serpent)**: Lua serializer
   and pretty printer. ([MIT
   license](https://github.com/pkulchenko/serpent/blob/master/LICENSE))

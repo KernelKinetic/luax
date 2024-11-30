@@ -277,7 +277,6 @@ Some modules are heavily inspired by [BonaLuna](http://cdelord.fr/bl) and
 - [lz4](lz4.md): Extremely Fast Compression algorithm
 - [lzip](lzip.md): A compression library for the lzip format
 - [lpeg](lpeg.md): Parsing Expression Grammars For Lua
-- [luasocket](luasocket.md): Network support for the Lua language
 - [argparse](argparse.md): Feature-rich command line parser for Lua
 - [serpent](serpent.md): Lua serializer and pretty printer
 - [cbor](cbor.md): pure Lua implementation of the CBOR
@@ -344,9 +343,6 @@ script `lib/luax.lua` can be reused in pure Lua programs:
   ([MIT license](http://www.lua.org/license.html))
 * **[Lpeg](http://www.inf.puc-rio.br/~roberto/lpeg/)**: Parsing Expression
   Grammars For Lua ([MIT license](http://www.lua.org/license.html))
-* **[luasocket](https://github.com/diegonehab/luasocket)**: Network support for
-  the Lua language ([LuaSocket 3.0
-  license](https://github.com/diegonehab/luasocket/blob/master/LICENSE))
 * **[serpent](https://github.com/pkulchenko/serpent)**: Lua serializer and
   pretty printer. ([MIT
   license](https://github.com/pkulchenko/serpent/blob/master/LICENSE))

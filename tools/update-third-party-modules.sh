@@ -30,7 +30,6 @@ update_all()
     update_limath       105
     update_lqmath       107
     update_lmathx
-    update_luasocket    3.1.0
     update_lpeg         1.1.0
     update_argparse     master
     update_serpent      master
@@ -150,26 +149,6 @@ update_lmathx()
 
     rm -rf ext/c/mathx
     tar -xzf "$TMP/$LMATHX_ARCHIVE" -C ext/c --exclude=Makefile --exclude=test.lua
-}
-
-update_luasocket()
-{
-    local LUASOCKET_VERSION="$1"
-    local LUASOCKET_ARCHIVE="luasocket-$LUASOCKET_VERSION.zip"
-    local LUASOCKET_URL="https://github.com/lunarmodules/luasocket/archive/refs/tags/v$LUASOCKET_VERSION.zip"
-
-    mkdir -p "$TMP"
-    download "$LUASOCKET_URL" "$TMP/$LUASOCKET_ARCHIVE"
-
-    rm -rf ext/c/luasocket
-    mkdir ext/c/luasocket
-    unzip -j "$TMP/$LUASOCKET_ARCHIVE" "luasocket-$LUASOCKET_VERSION/src/*" -x "*/src/makefile" -d ext/c/luasocket
-    echo "--@LIB=socket.ftp"     >> ext/c/luasocket/ftp.lua
-    echo "--@LIB=socket.headers" >> ext/c/luasocket/headers.lua
-    echo "--@LIB=socket.http"    >> ext/c/luasocket/http.lua
-    echo "--@LIB=socket.smtp"    >> ext/c/luasocket/smtp.lua
-    echo "--@LIB=socket.tp"      >> ext/c/luasocket/tp.lua
-    echo "--@LIB=socket.url"     >> ext/c/luasocket/url.lua
 }
 
 update_lpeg()

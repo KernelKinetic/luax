@@ -55,27 +55,6 @@ local luax_packages = F.flatten{
 
     -- lpeg is only found in LuaX
     is_luax and {"lpeg", "re"} or {},
-
-    -- socket is only found in LuaX
-    is_luax and {
-        "socket",
-        "socket.core",
-        "socket.ftp",
-        "socket.headers",
-        "socket.http",
-        "socket.smtp",
-        "socket.tp",
-        "socket.url",
-        package.config:match"^/" and {
-            -- available on linux only
-            "socket.unix",
-            "socket.serial",
-        } or {},
-        "mime",
-        "mime.core",
-        "mbox",
-        "ltn12",
-    } or {},
 }
 
 -- load all LuaX packages to check they won't interfere with the Lua global environment
