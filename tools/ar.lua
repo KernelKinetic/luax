@@ -19,7 +19,7 @@ For further information about luax you can visit
 http://cdelord.fr/luax
 --]]
 
--- Archive files to a CBOR/LZ4/Lzip file
+-- Archive files to a CBOR/Lzip file
 
 local F = require "F"
 local fs = require "fs"

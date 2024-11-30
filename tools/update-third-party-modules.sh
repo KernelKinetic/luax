@@ -33,7 +33,6 @@ update_all()
     update_lpeg         1.1.0
     update_argparse     master
     update_serpent      master
-    update_lz4          release
     update_lzlib        1.14
     update_cbor
     update_linenoise    utf8-support # switch to "master" when the UTF-8 support is merged
@@ -194,21 +193,6 @@ update_serpent()
            -e '/^ *if setfenv then setfenv(f, env) end *$/d'    \
            ext/lua/serpent/serpent.lua
     echo "--@LIB" >> ext/lua/serpent/serpent.lua
-}
-
-update_lz4()
-{
-    local LZ4_VERSION="$1"
-    local LZ4_ARCHIVE="lz4-$LZ4_VERSION.zip"
-    local LZ4_URL="https://github.com/lz4/lz4/archive/refs/heads/$LZ4_VERSION.zip"
-
-    mkdir -p "$TMP"
-    download "$LZ4_URL" "$TMP/$LZ4_ARCHIVE"
-
-    rm -rf ext/c/lz4
-    mkdir -p ext/c/lz4/lib ext/c/lz4/programs
-    unzip -j "$TMP/$LZ4_ARCHIVE" '*/lib/*.[ch]' '*/lib/LICENSE' -d ext/c/lz4/lib
-    unzip -j "$TMP/$LZ4_ARCHIVE" '*/programs/*.[ch]' '*/programs/COPYING' -d ext/c/lz4/programs
 }
 
 update_lzlib()

@@ -263,7 +263,6 @@ local include_path = F{
     ".",
     "$tmp",
     "lua",
-    "ext/c/lz4/lib",
     "ext/c/lzlib/lib",
     "ext/c/lzlib/lib/inc",
     "libluax",
@@ -588,7 +587,6 @@ local sources = {
     libluax_main_c_files = F{ "luax/libluax.c" },
     luax_c_files = ls "libluax/**.c",
     third_party_c_files = ls "ext/c/**.c"
-        : filter(function(name) return not name:match "lz4/programs" end)
         : filter(function(name) return not name:match "lzlib/lib/inc" end)
         : filter(function(name) return not name:match "lzlib/programs" end)
         : difference(linux_only)
@@ -620,19 +618,6 @@ var "lua_path" (
 build "$lua" { ld.host,
     (sources.lua_c_files .. sources.lua_main_c_files) : map(function(src)
         return build("$tmp/obj/lua"/src:chext".o") { cc.host, src }
-    end),
-}
-
---===================================================================
-section "lz4 cli"
----------------------------------------------------------------------
-
-var "lz4" "$tmp/lz4"
-
-build "$lz4" { ld.host,
-    ls "ext/c/lz4/**.c"
-    : map(function(src)
-        return build("$tmp/obj/lz4"/src:chext".o") { cc.host, src }
     end),
 }
 
@@ -696,7 +681,6 @@ rule "bundle" {
     },
     implicit_in = {
         "$lua",
-        "$lz4",
         "$lzip",
         "tools/bundle.lua",
         "luax/luax_bundle.lua",
@@ -719,7 +703,6 @@ rt {                                            lua="libluax/imath/imath.lua"   
 rt { luax="libluax/import/import.lua",          lua="libluax/import/import.lua"                             }
 rt {                                            lua="libluax/linenoise/linenoise.lua"                       }
 rt { luax="libluax/lar/lar.lua",                lua="libluax/lar/lar.lua"                                   }
-rt { luax="libluax/lz4/lz4.lua",                lua={"libluax/lz4/lz4.lua", "libluax/lz4/_lz4.lua"}         }
 rt { luax="libluax/lzip/lzip.lua",              lua={"libluax/lzip/lzip.lua", "libluax/lzip/_lzip.lua"}     }
 rt {                                            lua="libluax/mathx/mathx.lua"                               }
 rt {                                            lua="libluax/ps/ps.lua"                                     }
@@ -889,7 +872,6 @@ rule "ar" {
     command = "$luax tools/ar.lua $in -o $out $flags",
     implicit_in = {
         "$luax",
-        "$lz4",
         "$lzip",
         "tools/ar.lua",
     },
@@ -897,8 +879,10 @@ rule "ar" {
 
 acc(libraries) {
     build "$lib/luax.lar" { "ar",
-        flags = {
-            "-z none", -- no compression => faster load and better compression of the published archives
+        flags = case(mode) {
+            fast  = "-z lzip-9",
+            small = "-z lzip-9",
+            debug = "-z none",
         },
 
         -- Lua runtime
@@ -978,7 +962,6 @@ rule "luax-bundle" {
     },
     implicit_in = {
         "$lua",
-        "$lz4",
         "$lzip",
         "luax/luax.lua",
         "$lib/luax.lua",
@@ -1009,16 +992,16 @@ acc(binaries) {
 section "Tests"
 ---------------------------------------------------------------------
 
-rule "lz4" {
-    description = "LZ4 $in",
-    command = "$lz4 -qkf $in -c > $out",
-    implicit_in = "$lz4",
+rule "lzip" {
+    description = "LZip $in",
+    command = "$lzip -qkf $in -c > $out",
+    implicit_in = "$lzip",
 }
 
 local imported_test_sources = ls "tests/luax-tests/to_be_imported-*.lua"
 local test_sources = {
     ls "tests/luax-tests/*.*" : difference(imported_test_sources),
-    build "$test/resource.txt.lz4" { "lz4", "tests/luax-tests/resource.txt" },
+    build "$test/resource.txt.lz" { "lzip", "tests/luax-tests/resource.txt" },
 }
 local test_main = "tests/luax-tests/main.lua"
 
@@ -1138,7 +1121,6 @@ acc(test) {
         implicit_in = {
             "$lua",
             "$lib/luax.lua",
-            "$lz4",
             "$lzip",
             libraries,
             test_sources,
@@ -1163,7 +1145,6 @@ acc(test) {
         implicit_in = {
             "$lua",
             "$bin/luax.lua",
-            "$lz4",
             "$lzip",
             test_sources,
             imported_test_sources,
@@ -1187,7 +1168,6 @@ acc(test) {
         implicit_in = {
             "$lua",
             "$lib/luax.lua",
-            "$lz4",
             "$lzip",
             libraries,
             test_sources,

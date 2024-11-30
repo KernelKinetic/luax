@@ -33,7 +33,6 @@
 #include "imath/imath.h"
 #include "linenoise/linenoise.h"
 #include "lpeg/lpeg.h"
-#include "lz4/lz4.h"
 #include "lzip/lzip.h"
 #include "mathx/mathx.h"
 #include "ps/ps.h"
@@ -48,7 +47,6 @@ static const luaL_Reg lrun_libs[] = {
     {"imath",       luaopen_imath},
     {"linenoise",   luaopen_linenoise},
     {"lpeg",        luaopen_lpeg},
-    {"_lz4",        luaopen_lz4},
     {"_lzip",       luaopen_lzip},
     {"mathx",       luaopen_mathx},
     {"ps",          luaopen_ps},

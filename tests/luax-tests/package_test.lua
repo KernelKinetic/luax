@@ -48,7 +48,6 @@ return function()
         lib             = "tests/luax-tests/lib.lua",
         linenoise_test  = "tests/luax-tests/linenoise_test.lua",
         lpeg_test       = "tests/luax-tests/lpeg_test.lua",
-        lz4_test        = "tests/luax-tests/lz4_test.lua",
         lzip_test       = "tests/luax-tests/lzip_test.lua",
         mathx_test      = "tests/luax-tests/mathx_test.lua",
         package_test    = "tests/luax-tests/package_test.lua",

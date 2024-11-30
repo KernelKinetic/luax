@@ -68,7 +68,6 @@ entering the REPL:
 - crypt
 - fs
 - imath
-- lz4
 - lzip
 - mathx
 - ps

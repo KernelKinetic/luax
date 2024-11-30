@@ -21,7 +21,6 @@ http://cdelord.fr/luax
 --@LIB
 
 local F = require "F"
-local lz4 = require "lz4"
 local lzip = require "lzip"
 local cbor = require "cbor"
 local crypt = require "crypt"
@@ -39,7 +38,7 @@ local lar = require "lar"
 It contains a Lua value:
 
 - serialized with `cbor`
-- compressed with `lz4` or `lzip`
+- compressed with `lzip`
 - encrypted with `arc4`
 
 The Lua value is only encrypted if a key is provided.
@@ -49,12 +48,10 @@ local lar = {}
 local MAGIC = "!<LuaX archive>"
 
 local RAW  <const> = 0
-local LZ4  <const> = 1
-local LZIP <const> = 2
+local LZIP <const> = 1
 
 local compression_options = {
     { algo=nil,    flag=RAW,  compress=F.id,      decompress=F.id        },
-    { algo="lz4",  flag=LZ4,  compress=lz4.lz4,   decompress=lz4.unlz4   },
     { algo="lzip", flag=LZIP, compress=lzip.lzip, decompress=lzip.unlzip },
 }
 
@@ -77,8 +74,6 @@ Options:
 - `opt.compress`: compression algorithm (`"lzip"` by default):
 
     - `"none"`: no compression
-    - `"lz4"`: compression with LZ4 (default compression level)
-    - `"lz4-#"`: compression with LZ4 (compression level `#` with `#` between 0 and 12)
     - `"lzip"`: compression with lzip (default compression level)
     - `"lzip-#"`: compression with lzip (compression level `#` with `#` between 0 and 9)
 
